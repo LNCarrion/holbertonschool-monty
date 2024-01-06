@@ -1,17 +1,13 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-/* Libraries */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include <stdbool.h>
 #include <ctype.h>
-#include<sys/types.h>
-#include<sys/stat.h>
-#include<fcntl.h>
+#include <stdbool.h>
 
-/* Structures */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -21,12 +17,14 @@
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO
  */
-typedef struct stack_s
+
+typedef struct m_stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
-} stack_t;
+    int n;
+    struct m_stack_s *prev;
+    struct m_stack_s *next;
+} m_stack_t;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -37,17 +35,20 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+    char *opcode;
+    void (*f)(m_stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* Prototypes */
 
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
-int is_number(char *str);
-void free_stack(stack_t **stack);
-void get_opcode(stack_t **stack, unsigned int line_number, char *opcode);
-void cleanm(stack_t *stack);
+void free_token(m_stack_t *stack);
+int isInteger(const char *str);
+void add(m_stack_t **stack, unsigned int line_number);
+void nop(m_stack_t **stack, unsigned int line_number);
+void push(m_stack_t **stack, unsigned int line_number);
+void pall(m_stack_t **stack, unsigned int line_number);
+void pint(m_stack_t **stack, unsigned int line_number);
+void pop(m_stack_t **stack, unsigned int line_number);
+void swap(m_stack_t **stack, unsigned int line_number);
+void getf(m_stack_t **stack, char *line, unsigned int line_number);
 
-#endif /* MONTY_H */
+#endif
